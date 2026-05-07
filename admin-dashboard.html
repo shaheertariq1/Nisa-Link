@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* ══════════════════════════════════════════
-       RESET & VARIABLES
-    ══════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --primary:    #C48B9D;
       --secondary:  #F4D0D4;
@@ -36,37 +31,22 @@
       --red:        #c62828;
       --red-bg:     #ffebee;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; }
     table { border-collapse: collapse; width: 100%; }
 
-    /* ══════════════════════════════════════════
-       LAYOUT SHELL
-    ══════════════════════════════════════════ */
+    /* LAYOUT */
     .admin-shell {
       display: grid;
       grid-template-columns: var(--sidebar-w) 1fr;
       grid-template-rows: var(--header-h) 1fr;
-      grid-template-areas:
-        "sidebar header"
-        "sidebar main";
+      grid-template-areas: "sidebar header" "sidebar main";
       min-height: 100vh;
     }
 
-    /* ══════════════════════════════════════════
-       SIDEBAR
-    ══════════════════════════════════════════ */
+    /* SIDEBAR */
     .sidebar {
       grid-area: sidebar;
       background: var(--accent);
@@ -80,1073 +60,700 @@
       overflow-y: auto;
       transition: transform 0.3s ease;
     }
-
-    .sidebar-logo {
-      padding: 1.4rem 1.5rem 1.2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-      flex-shrink: 0;
-    }
-
-    .sidebar-logo a {
-      font-size: 1.45rem;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-    }
-
+    .sidebar-logo { padding: 1.4rem 1.5rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .sidebar-logo a { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
     .sidebar-logo a span { color: var(--secondary); }
+    .sidebar-logo p { font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-top: 0.15rem; letter-spacing: 0.5px; text-transform: uppercase; }
+    .sidebar-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.2rem; }
+    .nav-section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 0.75rem 0.75rem 0.35rem; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 500; color: rgba(255,255,255,0.82); transition: background 0.2s, color 0.2s; position: relative; }
+    .sidebar-nav a i { width: 18px; text-align: center; font-size: 0.9rem; flex-shrink: 0; }
+    .sidebar-nav a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .sidebar-nav a.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 700; }
+    .sidebar-nav a.active::before { content: ''; position: absolute; left: 0; top: 20%; bottom: 20%; width: 3px; background: var(--secondary); border-radius: 0 3px 3px 0; }
+    .nav-badge { margin-left: auto; background: var(--secondary); color: var(--accent); font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 50px; }
+    .sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.78rem; color: rgba(255,255,255,0.5); }
 
-    .sidebar-logo p {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.6);
-      margin-top: 0.15rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .sidebar-nav {
-      flex: 1;
-      padding: 1rem 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .nav-section-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      padding: 0.75rem 0.75rem 0.35rem;
-    }
-
-    .sidebar-nav a {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.65rem 0.85rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.82);
-      transition: background 0.2s, color 0.2s;
-      position: relative;
-    }
-
-    .sidebar-nav a i {
-      width: 18px;
-      text-align: center;
-      font-size: 0.9rem;
-      flex-shrink: 0;
-    }
-
-    .sidebar-nav a:hover {
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-    }
-
-    .sidebar-nav a.active {
-      background: rgba(255,255,255,0.18);
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .sidebar-nav a.active::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 20%; bottom: 20%;
-      width: 3px;
-      background: var(--secondary);
-      border-radius: 0 3px 3px 0;
-    }
-
-    .nav-badge {
-      margin-left: auto;
-      background: var(--secondary);
-      color: var(--accent);
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 0.15rem 0.5rem;
-      border-radius: 50px;
-    }
-
-    .sidebar-footer {
-      padding: 1rem 1.25rem;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.5);
-    }
-
-    /* ══════════════════════════════════════════
-       TOP HEADER
-    ══════════════════════════════════════════ */
-    .top-header {
-      grid-area: header;
-      position: fixed;
-      top: 0;
-      left: var(--sidebar-w);
-      right: 0;
-      height: var(--header-h);
-      background: var(--white);
-      border-bottom: 1px solid var(--secondary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      z-index: 100;
-      box-shadow: var(--shadow);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      color: var(--accent);
-      padding: 0.4rem;
-      border-radius: var(--radius-sm);
-      transition: background 0.2s;
-    }
-
+    /* TOP HEADER */
+    .top-header { grid-area: header; position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: var(--header-h); background: var(--white); border-bottom: 1px solid var(--secondary); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 100; box-shadow: var(--shadow); }
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; color: var(--accent); padding: 0.4rem; border-radius: var(--radius-sm); transition: background 0.2s; }
     .menu-toggle:hover { background: var(--secondary); }
-
-    .header-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .header-title span {
-      font-weight: 400;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-left: 0.5rem;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    .header-date {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
+    .header-title { font-size: 1.05rem; font-weight: 700; color: var(--accent); }
+    .header-title span { font-weight: 400; color: var(--text-muted); font-size: 0.85rem; margin-left: 0.5rem; }
+    .header-right { display: flex; align-items: center; gap: 1.25rem; }
+    .header-date { font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
     .header-date i { color: var(--primary); }
-
-    .header-notif {
-      position: relative;
-      background: none;
-      border: none;
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      padding: 0.4rem;
-      border-radius: var(--radius-sm);
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .header-notif:hover { background: var(--secondary); color: var(--accent); }
-
-    .notif-dot {
-      position: absolute;
-      top: 4px; right: 4px;
-      width: 8px; height: 8px;
-      background: var(--red);
-      border-radius: 50%;
-      border: 2px solid var(--white);
-    }
-
-    .admin-profile {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.35rem 0.75rem 0.35rem 0.35rem;
-      border-radius: 50px;
-      border: 1.5px solid var(--secondary);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
+    .admin-profile { display: flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.75rem 0.35rem 0.35rem; border-radius: 50px; border: 1.5px solid var(--secondary); cursor: pointer; transition: background 0.2s; }
     .admin-profile:hover { background: var(--secondary); }
+    .admin-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #fff; font-weight: 700; flex-shrink: 0; }
+    .admin-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
 
-    .admin-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      color: #fff;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
+    /* MAIN */
+    .main-content { grid-area: main; margin-left: var(--sidebar-w); margin-top: var(--header-h); padding: 2rem; min-height: calc(100vh - var(--header-h)); }
+    .page-title { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin-bottom: 0.25rem; }
+    .page-subtitle { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2rem; }
 
-    .admin-name {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-    }
+    /* SEARCH & FILTER BAR */
+    .toolbar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .search-box { display: flex; align-items: center; gap: 0.5rem; background: var(--white); border: 1.5px solid var(--secondary); border-radius: 50px; padding: 0.45rem 1rem; flex: 1; min-width: 200px; max-width: 340px; }
+    .search-box i { color: var(--primary); font-size: 0.85rem; }
+    .search-box input { border: none; outline: none; background: transparent; font-family: inherit; font-size: 0.88rem; color: var(--text); width: 100%; }
+    .filter-select { border: 1.5px solid var(--secondary); border-radius: 50px; padding: 0.45rem 1rem; font-family: inherit; font-size: 0.85rem; color: var(--text); background: var(--white); outline: none; cursor: pointer; }
+    .filter-select:focus { border-color: var(--primary); }
 
-    /* ══════════════════════════════════════════
-       MAIN CONTENT
-    ══════════════════════════════════════════ */
-    .main-content {
-      grid-area: main;
-      margin-left: var(--sidebar-w);
-      margin-top: var(--header-h);
-      padding: 2rem;
-      min-height: calc(100vh - var(--header-h));
-    }
-
-    .page-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-
-    .page-subtitle {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-
-    /* ══════════════════════════════════════════
-       STAT CARDS
-    ══════════════════════════════════════════ */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--secondary);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .stat-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .stat-icon {
-      width: 46px; height: 46px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .stat-icon.pink   { background: #fce4ec; color: #c2185b; }
-    .stat-icon.purple { background: #f3e5f5; color: #7b1fa2; }
-    .stat-icon.rose   { background: #fce4ec; color: var(--accent); }
-    .stat-icon.green  { background: var(--green-bg); color: var(--green); }
-
-    .stat-trend {
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.2rem 0.5rem;
-      border-radius: 50px;
-    }
-
-    .trend-up   { background: var(--green-bg); color: var(--green); }
-    .trend-down { background: var(--red-bg);   color: var(--red); }
-
-    .stat-value {
-      font-size: 1.9rem;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    /* ══════════════════════════════════════════
-       SECTION WRAPPER
-    ══════════════════════════════════════════ */
-    .section-block {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--secondary);
-      margin-bottom: 1.75rem;
-      overflow: hidden;
-    }
-
-    .section-block-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--secondary);
-    }
-
-    .section-block-header h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
+    /* SECTION BLOCK */
+    .section-block { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--secondary); margin-bottom: 2rem; overflow: hidden; }
+    .section-block-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--secondary); flex-wrap: wrap; gap: 0.75rem; }
+    .section-block-header h2 { font-size: 1rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
     .section-block-header h2 i { color: var(--primary); }
+    .header-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
-    .btn-sm {
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      border: none;
-      transition: background 0.2s, transform 0.2s;
-    }
-
+    /* BUTTONS */
+    .btn-sm { padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; border: none; transition: background 0.2s, transform 0.2s; cursor: pointer; }
     .btn-sm:hover { transform: translateY(-1px); }
-
-    .btn-primary-sm {
-      background: var(--primary);
-      color: #fff;
-    }
-
+    .btn-primary-sm { background: var(--primary); color: #fff; }
     .btn-primary-sm:hover { background: var(--accent); }
-
-    .btn-outline-sm {
-      background: transparent;
-      color: var(--accent);
-      border: 1.5px solid var(--primary);
-    }
-
+    .btn-outline-sm { background: transparent; color: var(--accent); border: 1.5px solid var(--primary); }
     .btn-outline-sm:hover { background: var(--secondary); }
+    .btn-danger-sm { background: var(--red-bg); color: var(--red); border: 1px solid #ef9a9a; }
+    .btn-danger-sm:hover { background: #ffcdd2; }
 
-    /* ══════════════════════════════════════════
-       TABLES
-    ══════════════════════════════════════════ */
+    /* TABLE */
     .table-wrap { overflow-x: auto; }
+    .data-table { width: 100%; font-size: 0.86rem; }
+    .data-table thead tr { background: var(--bg); }
+    .data-table th { padding: 0.75rem 1.25rem; text-align: left; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+    .data-table td { padding: 0.85rem 1.25rem; color: var(--text); border-top: 1px solid #fce8ec; vertical-align: middle; }
+    .data-table tbody tr:nth-child(even) td { background: #fffafb; }
+    .data-table tbody tr:hover td { background: #fdf0f3; }
 
-    .data-table {
-      width: 100%;
-      font-size: 0.86rem;
-    }
+    /* BADGES */
+    .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.7rem; border-radius: 50px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .badge-active    { background: var(--green-bg); color: var(--green); }
+    .badge-pending   { background: var(--yellow-bg); color: var(--yellow); }
+    .badge-suspended { background: var(--red-bg); color: var(--red); }
+    .badge-verified  { background: var(--green-bg); color: var(--green); }
+    .badge-client    { background: #e8eaf6; color: #3949ab; }
+    .badge-provider  { background: #fce4ec; color: var(--accent); }
 
-    .data-table thead tr {
-      background: var(--bg);
-    }
+    /* USER CELL */
+    .user-cell { display: flex; align-items: center; gap: 0.65rem; }
+    .user-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: var(--accent); flex-shrink: 0; border: 2px solid var(--primary); }
+    .user-name { font-weight: 600; font-size: 0.88rem; }
+    .user-email { font-size: 0.75rem; color: var(--text-muted); }
 
-    .data-table th {
-      padding: 0.75rem 1.25rem;
-      text-align: left;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
+    /* ACTION BUTTONS */
+    .action-btns { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .btn-icon { padding: 0.3rem 0.7rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; border: none; transition: background 0.2s, transform 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; }
+    .btn-icon:hover { transform: translateY(-1px); }
+    .btn-view    { background: #e8eaf6; color: #3949ab; }
+    .btn-view:hover { background: #c5cae9; }
+    .btn-suspend { background: var(--yellow-bg); color: var(--yellow); }
+    .btn-suspend:hover { background: #ffe082; }
+    .btn-delete  { background: var(--red-bg); color: var(--red); }
+    .btn-delete:hover { background: #ffcdd2; }
+    .btn-verify  { background: var(--green-bg); color: var(--green); }
+    .btn-verify:hover { background: #c8e6c9; }
+    .btn-restore { background: var(--green-bg); color: var(--green); }
+    .btn-restore:hover { background: #c8e6c9; }
 
-    .data-table td {
-      padding: 0.85rem 1.25rem;
-      color: var(--text);
-      border-top: 1px solid #fce8ec;
-      vertical-align: middle;
-    }
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 500; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--white); border-radius: var(--radius); padding: 2rem; width: 90%; max-width: 480px; box-shadow: var(--shadow-lg); position: relative; }
+    .modal h3 { font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.1rem; color: var(--text-muted); cursor: pointer; padding: 0.25rem; border-radius: 6px; }
+    .modal-close:hover { background: var(--secondary); color: var(--accent); }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .form-group input, .form-group select { width: 100%; padding: 0.6rem 0.9rem; border: 1.5px solid var(--secondary); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.88rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
 
-    .data-table tbody tr:nth-child(even) td {
-      background: #fffafb;
-    }
+    /* SIDEBAR OVERLAY */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 150; }
 
-    .data-table tbody tr:hover td {
-      background: #fdf0f3;
-    }
-
-    /* ── Status badges ── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .badge-pending    { background: var(--yellow-bg); color: var(--yellow); }
-    .badge-completed  { background: var(--green-bg);  color: var(--green);  }
-    .badge-cancelled  { background: var(--red-bg);    color: var(--red);    }
-    .badge-verified   { background: #e8f5e9; color: #2e7d32; }
-
-    /* ── Action buttons in table ── */
-    .action-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-
-    .btn-verify {
-      padding: 0.3rem 0.75rem;
-      background: var(--green-bg);
-      color: var(--green);
-      border: 1px solid #a5d6a7;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .btn-verify:hover { background: #c8e6c9; transform: translateY(-1px); }
-
-    .btn-reject {
-      padding: 0.3rem 0.75rem;
-      background: var(--red-bg);
-      color: var(--red);
-      border: 1px solid #ef9a9a;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .btn-reject:hover { background: #ffcdd2; transform: translateY(-1px); }
-
-    .provider-cell {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .provider-cell .mini-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-      border: 2px solid var(--primary);
-    }
-
-    .provider-cell .mini-name { font-weight: 600; }
-    .provider-cell .mini-sub  { font-size: 0.75rem; color: var(--text-muted); }
-
-    /* ══════════════════════════════════════════
-       QUICK ACTIONS
-    ══════════════════════════════════════════ */
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .quick-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--secondary);
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .quick-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .quick-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .quick-icon {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.15rem;
-    }
-
-    .quick-icon.rose   { background: #fce4ec; color: var(--accent); }
-    .quick-icon.green  { background: var(--green-bg); color: var(--green); }
-    .quick-icon.yellow { background: var(--yellow-bg); color: var(--yellow); }
-
-    .quick-pill {
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.25rem 0.65rem;
-      border-radius: 50px;
-    }
-
-    .pill-rose   { background: #fce4ec; color: var(--accent); }
-    .pill-green  { background: var(--green-bg); color: var(--green); }
-    .pill-yellow { background: var(--yellow-bg); color: var(--yellow); }
-
-    .quick-card h3 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .quick-card p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .quick-card .btn-action {
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border: none;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .quick-card .btn-action:hover { transform: translateY(-1px); }
-
-    .btn-rose   { background: var(--primary); color: #fff; }
-    .btn-rose:hover { background: var(--accent); }
-
-    .btn-green  { background: #4caf50; color: #fff; }
-    .btn-green:hover { background: #388e3c; }
-
-    .btn-yellow { background: #ffa726; color: #fff; }
-    .btn-yellow:hover { background: #f57c00; }
-
-    /* ══════════════════════════════════════════
-       SIDEBAR OVERLAY (mobile)
-    ══════════════════════════════════════════ */
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.35);
-      z-index: 150;
-    }
-
-    /* ══════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .quick-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .admin-shell {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "header"
-          "main";
-      }
-
-      .sidebar {
-        transform: translateX(-100%);
-      }
-
-      .sidebar.open {
-        transform: translateX(0);
-      }
-
+      .admin-shell { grid-template-columns: 1fr; grid-template-areas: "header" "main"; }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
       .sidebar-overlay.open { display: block; }
-
-      .top-header {
-        left: 0;
-      }
-
-      .main-content {
-        margin-left: 0;
-        padding: 1.25rem;
-      }
-
+      .top-header { left: 0; }
+      .main-content { margin-left: 0; padding: 1.25rem; }
       .menu-toggle { display: flex; }
-
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .quick-grid { grid-template-columns: 1fr; }
-
       .header-date { display: none; }
-
-      .stat-value { font-size: 1.5rem; }
     }
-
     @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr; }
       .admin-name { display: none; }
     }
   </style>
 </head>
 <body>
-
 <div class="admin-shell">
 
-  <!-- ══════════════════════════════════════════
-       SIDEBAR
-  ══════════════════════════════════════════ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-
     <div class="sidebar-logo">
       <a href="index.html">Nisa-<span>Link</span></a>
       <p>Admin Panel</p>
     </div>
-
     <nav class="sidebar-nav">
-      <span class="nav-section-label">Main</span>
-      <a href="#" class="active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-      <a href="#"><i class="fa-solid fa-users"></i> Users Management</a>
-      <a href="#"><i class="fa-solid fa-id-card"></i> Providers Management</a>
-      <a href="#"><i class="fa-solid fa-calendar-check"></i> Bookings</a>
-
-      <span class="nav-section-label">Operations</span>
-      <a href="#"><i class="fa-solid fa-shield-halved"></i> Verification Queue <span class="nav-badge">3</span></a>
-      <a href="#"><i class="fa-solid fa-wallet"></i> Payments &amp; Payouts</a>
-      <a href="#"><i class="fa-solid fa-flag"></i> Reports <span class="nav-badge">2</span></a>
-
+      <span class="nav-section-label">User Management</span>
+      <a href="#" class="active" onclick="showSection('clients')"><i class="fa-solid fa-users"></i> All Users</a>
+      <a href="#" onclick="showSection('providers')"><i class="fa-solid fa-id-card"></i> Providers</a>
+      <a href="#" onclick="showSection('pending')"><i class="fa-solid fa-shield-halved"></i> Pending Verification <span class="nav-badge" id="pendingBadge">3</span></a>
+      <a href="#" onclick="showSection('suspended')"><i class="fa-solid fa-ban"></i> Suspended Users</a>
       <span class="nav-section-label">System</span>
-      <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
       <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Site</a>
     </nav>
-
-    <div class="sidebar-footer">
-      Nisa-Link v1.0 &nbsp;·&nbsp; Admin
-    </div>
-
+    <div class="sidebar-footer">Nisa-Link v1.0 &nbsp;·&nbsp; Admin</div>
   </aside>
 
-  <!-- Overlay for mobile -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- ══════════════════════════════════════════
-       TOP HEADER
-  ══════════════════════════════════════════ -->
+  <!-- TOP HEADER -->
   <header class="top-header">
     <div class="header-left">
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      <div class="header-title">
-        Admin Dashboard
-        <span>/ Nisa-Link</span>
-      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+      <div class="header-title">User Management <span>/ Nisa-Link Admin</span></div>
     </div>
-
     <div class="header-right">
-      <div class="header-date">
-        <i class="fa-regular fa-calendar"></i>
-        <span id="todayDate"></span>
-      </div>
-      <button class="header-notif" aria-label="Notifications">
-        <i class="fa-regular fa-bell"></i>
-        <span class="notif-dot"></span>
-      </button>
+      <div class="header-date"><i class="fa-regular fa-calendar"></i><span id="todayDate"></span></div>
       <div class="admin-profile">
-        <div class="admin-avatar">S</div>
-        <span class="admin-name">Welcome, Sara</span>
+        <div class="admin-avatar">A</div>
+        <span class="admin-name">Admin</span>
         <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;color:var(--text-muted);margin-left:2px;"></i>
       </div>
     </div>
   </header>
 
-  <!-- ══════════════════════════════════════════
-       MAIN CONTENT
-  ══════════════════════════════════════════ -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
 
-    <div class="page-title">Dashboard Overview</div>
-    <div class="page-subtitle">Here's what's happening on Nisa-Link today.</div>
+    <!-- ══ ALL USERS SECTION ══ -->
+    <div id="section-clients">
+      <div class="page-title">All Users</div>
+      <div class="page-subtitle">View and manage every registered user on the platform.</div>
 
-    <!-- ── STAT CARDS ── -->
-    <div class="stats-grid">
-
-      <div class="stat-card">
-        <div class="stat-top">
-          <div class="stat-icon pink"><i class="fa-solid fa-users"></i></div>
-          <span class="stat-trend trend-up">↑ 12%</span>
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="clientSearch" placeholder="Search by name or email…" oninput="filterTable('clientsTable', this.value)" />
         </div>
-        <div class="stat-value">2,847</div>
-        <div class="stat-label">Total Users</div>
+        <select class="filter-select" onchange="filterByStatus('clientsTable', this.value)">
+          <option value="">All Statuses</option>
+          <option value="Active">Active</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+        <button class="btn-sm btn-primary-sm" onclick="openAddModal('client')"><i class="fa-solid fa-plus"></i> Add User</button>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-top">
-          <div class="stat-icon purple"><i class="fa-solid fa-id-badge"></i></div>
-          <span class="stat-trend trend-up">↑ 8%</span>
+      <div class="section-block">
+        <div class="section-block-header">
+          <h2><i class="fa-solid fa-users"></i> Registered Users</h2>
+          <div class="header-actions">
+            <button class="btn-sm btn-outline-sm" onclick="exportTable('clientsTable')"><i class="fa-solid fa-download"></i> Export CSV</button>
+          </div>
         </div>
-        <div class="stat-value">423</div>
-        <div class="stat-label">Total Providers</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-top">
-          <div class="stat-icon rose"><i class="fa-solid fa-calendar-check"></i></div>
-          <span class="stat-trend trend-up">↑ 21%</span>
+        <div class="table-wrap">
+          <table class="data-table" id="clientsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Phone</th>
+                <th>Joined</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">001</td>
+                <td><div class="user-cell"><div class="user-avatar">ZN</div><div><div class="user-name">Zainab Noor</div><div class="user-email">zainab.noor@email.com</div></div></div></td>
+                <td>0312-3456789</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">10 Jan 2025</td>
+                <td><span class="badge badge-client">Client</span></td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Zainab Noor','zainab.noor@email.com','0312-3456789','Client','Active','10 Jan 2025')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">002</td>
+                <td><div class="user-cell"><div class="user-avatar">MR</div><div><div class="user-name">Maryam Raza</div><div class="user-email">maryam.raza@email.com</div></div></div></td>
+                <td>0333-9876543</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">15 Jan 2025</td>
+                <td><span class="badge badge-client">Client</span></td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Maryam Raza','maryam.raza@email.com','0333-9876543','Client','Active','15 Jan 2025')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">003</td>
+                <td><div class="user-cell"><div class="user-avatar">SA</div><div><div class="user-name">Sara Akhtar</div><div class="user-email">sara.akhtar@email.com</div></div></div></td>
+                <td>0321-1122334</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">20 Feb 2025</td>
+                <td><span class="badge badge-client">Client</span></td>
+                <td><span class="badge badge-suspended"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Suspended</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Sara Akhtar','sara.akhtar@email.com','0321-1122334','Client','Suspended','20 Feb 2025')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-restore" onclick="toggleSuspend(this)"><i class="fa-solid fa-rotate-left"></i> Restore</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">004</td>
+                <td><div class="user-cell"><div class="user-avatar">HB</div><div><div class="user-name">Hina Baig</div><div class="user-email">hina.baig@email.com</div></div></div></td>
+                <td>0345-5566778</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">5 Mar 2025</td>
+                <td><span class="badge badge-client">Client</span></td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Hina Baig','hina.baig@email.com','0345-5566778','Client','Active','5 Mar 2025')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">005</td>
+                <td><div class="user-cell"><div class="user-avatar">NQ</div><div><div class="user-name">Nadia Qureshi</div><div class="user-email">nadia.q@email.com</div></div></div></td>
+                <td>0300-7788990</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">12 Mar 2025</td>
+                <td><span class="badge badge-client">Client</span></td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Nadia Qureshi','nadia.q@email.com','0300-7788990','Client','Active','12 Mar 2025')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="stat-value">1,256</div>
-        <div class="stat-label">Bookings This Month</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-top">
-          <div class="stat-icon green"><i class="fa-solid fa-sack-dollar"></i></div>
-          <span class="stat-trend trend-up">↑ 17%</span>
-        </div>
-        <div class="stat-value" style="font-size:1.5rem;">PKR 425K</div>
-        <div class="stat-label">Total Revenue</div>
-      </div>
-
-    </div>
-
-    <!-- ── QUICK ACTIONS ── -->
-    <div class="quick-grid">
-
-      <div class="quick-card">
-        <div class="quick-card-top">
-          <div class="quick-icon rose"><i class="fa-solid fa-user-check"></i></div>
-          <span class="quick-pill pill-rose">3 pending</span>
-        </div>
-        <h3>Approve New Providers</h3>
-        <p>3 providers are awaiting identity verification and approval.</p>
-        <button class="btn-action btn-rose" onclick="scrollToSection('verifications')">Review Now</button>
-      </div>
-
-      <div class="quick-card">
-        <div class="quick-card-top">
-          <div class="quick-icon green"><i class="fa-solid fa-money-bill-transfer"></i></div>
-          <span class="quick-pill pill-green">PKR 185,000 ready</span>
-        </div>
-        <h3>Process Weekly Payouts</h3>
-        <p>Weekly provider payouts are ready to be processed and disbursed.</p>
-        <button class="btn-action btn-green">Process Payouts</button>
-      </div>
-
-      <div class="quick-card">
-        <div class="quick-card-top">
-          <div class="quick-icon yellow"><i class="fa-solid fa-triangle-exclamation"></i></div>
-          <span class="quick-pill pill-yellow">2 new complaints</span>
-        </div>
-        <h3>Review Reports</h3>
-        <p>2 new complaint reports have been submitted and need review.</p>
-        <button class="btn-action btn-yellow">View Reports</button>
-      </div>
-
-    </div>
-
-    <!-- ── PENDING VERIFICATIONS ── -->
-    <div class="section-block" id="verifications">
-      <div class="section-block-header">
-        <h2><i class="fa-solid fa-shield-halved"></i> Pending Verification Queue</h2>
-        <button class="btn-sm btn-outline-sm">View All</button>
-      </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>Service Type</th>
-              <th>Applied On</th>
-              <th>Documents</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar">👩</div>
-                  <div>
-                    <div class="mini-name">Sana Ahmed</div>
-                    <div class="mini-sub">sana.ahmed@email.com</div>
-                  </div>
-                </div>
-              </td>
-              <td><span style="color:var(--primary);font-weight:600;">💄 Beautician</span></td>
-              <td>2 days ago</td>
-              <td><span style="color:var(--green);font-size:0.8rem;font-weight:600;"><i class="fa-solid fa-file-circle-check"></i> 3/3 uploaded</span></td>
-              <td><span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-verify" onclick="verifyProvider(this, 'Sana Ahmed')"><i class="fa-solid fa-check"></i> Verify</button>
-                  <button class="btn-reject" onclick="rejectProvider(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar">👩‍🦱</div>
-                  <div>
-                    <div class="mini-name">Rabia Khan</div>
-                    <div class="mini-sub">rabia.khan@email.com</div>
-                  </div>
-                </div>
-              </td>
-              <td><span style="color:var(--primary);font-weight:600;">🚗 Female Driver</span></td>
-              <td>Yesterday</td>
-              <td><span style="color:var(--yellow);font-size:0.8rem;font-weight:600;"><i class="fa-solid fa-file-circle-exclamation"></i> 2/3 uploaded</span></td>
-              <td><span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-verify" onclick="verifyProvider(this, 'Rabia Khan')"><i class="fa-solid fa-check"></i> Verify</button>
-                  <button class="btn-reject" onclick="rejectProvider(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar">👩‍🏫</div>
-                  <div>
-                    <div class="mini-name">Fatima Zafar</div>
-                    <div class="mini-sub">fatima.zafar@email.com</div>
-                  </div>
-                </div>
-              </td>
-              <td><span style="color:var(--primary);font-weight:600;">📚 Tutor</span></td>
-              <td>Today</td>
-              <td><span style="color:var(--green);font-size:0.8rem;font-weight:600;"><i class="fa-solid fa-file-circle-check"></i> 3/3 uploaded</span></td>
-              <td><span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-verify" onclick="verifyProvider(this, 'Fatima Zafar')"><i class="fa-solid fa-check"></i> Verify</button>
-                  <button class="btn-reject" onclick="rejectProvider(this)"><i class="fa-solid fa-xmark"></i> Reject</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
 
-    <!-- ── RECENT BOOKINGS ── -->
-    <div class="section-block">
-      <div class="section-block-header">
-        <h2><i class="fa-solid fa-calendar-check"></i> Recent Bookings</h2>
-        <button class="btn-sm btn-primary-sm">Export CSV</button>
+    <!-- ══ PROVIDERS SECTION ══ -->
+    <div id="section-providers" style="display:none;">
+      <div class="page-title">Providers</div>
+      <div class="page-subtitle">Manage all verified and active service providers.</div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search providers…" oninput="filterTable('providersTable', this.value)" />
+        </div>
+        <select class="filter-select" onchange="filterByStatus('providersTable', this.value)">
+          <option value="">All Statuses</option>
+          <option value="Active">Active</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+        <button class="btn-sm btn-primary-sm" onclick="openAddModal('provider')"><i class="fa-solid fa-plus"></i> Add Provider</button>
       </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Booking ID</th>
-              <th>Customer</th>
-              <th>Provider</th>
-              <th>Service</th>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-weight:700;color:var(--accent);">#NL-1041</td>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar" style="font-size:0.75rem;background:#f3e5f5;">ZN</div>
-                  <span class="mini-name">Zainab Noor</span>
-                </div>
-              </td>
-              <td>Ayesha Siddiqui</td>
-              <td>💄 Beautician</td>
-              <td style="font-weight:700;">PKR 3,500</td>
-              <td style="color:var(--text-muted);font-size:0.82rem;">26 Apr 2025</td>
-              <td><span class="badge badge-completed"><i class="fa-solid fa-circle-check"></i> Completed</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight:700;color:var(--accent);">#NL-1040</td>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar" style="font-size:0.75rem;background:#fce4ec;">MR</div>
-                  <span class="mini-name">Maryam Raza</span>
-                </div>
-              </td>
-              <td>Zara Mahmood</td>
-              <td>📚 Tutor</td>
-              <td style="font-weight:700;">PKR 2,000</td>
-              <td style="color:var(--text-muted);font-size:0.82rem;">25 Apr 2025</td>
-              <td><span class="badge badge-completed"><i class="fa-solid fa-circle-check"></i> Completed</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight:700;color:var(--accent);">#NL-1039</td>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar" style="font-size:0.75rem;background:#e8f5e9;">SA</div>
-                  <span class="mini-name">Sara Akhtar</span>
-                </div>
-              </td>
-              <td>Fatima Noor</td>
-              <td>🧘 Fitness Trainer</td>
-              <td style="font-weight:700;">PKR 4,500</td>
-              <td style="color:var(--text-muted);font-size:0.82rem;">25 Apr 2025</td>
-              <td><span class="badge badge-pending"><i class="fa-solid fa-clock"></i> Pending</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight:700;color:var(--accent);">#NL-1038</td>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar" style="font-size:0.75rem;background:#fff8e1;">HB</div>
-                  <span class="mini-name">Hina Baig</span>
-                </div>
-              </td>
-              <td>Rabia Khan</td>
-              <td>🚗 Female Driver</td>
-              <td style="font-weight:700;">PKR 1,200</td>
-              <td style="color:var(--text-muted);font-size:0.82rem;">24 Apr 2025</td>
-              <td><span class="badge badge-cancelled"><i class="fa-solid fa-circle-xmark"></i> Cancelled</span></td>
-            </tr>
-            <tr>
-              <td style="font-weight:700;color:var(--accent);">#NL-1037</td>
-              <td>
-                <div class="provider-cell">
-                  <div class="mini-avatar" style="font-size:0.75rem;background:#fce4ec;">NQ</div>
-                  <span class="mini-name">Nadia Qureshi</span>
-                </div>
-              </td>
-              <td>Ayesha Siddiqui</td>
-              <td>💄 Beautician</td>
-              <td style="font-weight:700;">PKR 5,500</td>
-              <td style="color:var(--text-muted);font-size:0.82rem;">24 Apr 2025</td>
-              <td><span class="badge badge-completed"><i class="fa-solid fa-circle-check"></i> Completed</span></td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div class="section-block">
+        <div class="section-block-header">
+          <h2><i class="fa-solid fa-id-card"></i> Service Providers</h2>
+          <div class="header-actions">
+            <button class="btn-sm btn-outline-sm" onclick="exportTable('providersTable')"><i class="fa-solid fa-download"></i> Export CSV</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="providersTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Provider</th>
+                <th>Service</th>
+                <th>Phone</th>
+                <th>Joined</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">P01</td>
+                <td><div class="user-cell"><div class="user-avatar">AS</div><div><div class="user-name">Ayesha Siddiqui</div><div class="user-email">ayesha.s@email.com</div></div></div></td>
+                <td>💄 Beautician</td>
+                <td>0311-2233445</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">5 Dec 2024</td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Ayesha Siddiqui','ayesha.s@email.com','0311-2233445','Beautician','Active','5 Dec 2024')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">P02</td>
+                <td><div class="user-cell"><div class="user-avatar">ZM</div><div><div class="user-name">Zara Mahmood</div><div class="user-email">zara.m@email.com</div></div></div></td>
+                <td>📚 Tutor</td>
+                <td>0322-3344556</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">10 Dec 2024</td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Zara Mahmood','zara.m@email.com','0322-3344556','Tutor','Active','10 Dec 2024')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-muted);font-size:0.8rem;">P03</td>
+                <td><div class="user-cell"><div class="user-avatar">FN</div><div><div class="user-name">Fatima Noor</div><div class="user-email">fatima.n@email.com</div></div></div></td>
+                <td>🧘 Fitness Trainer</td>
+                <td>0344-4455667</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">18 Dec 2024</td>
+                <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-view" onclick="viewUser('Fatima Noor','fatima.n@email.com','0344-4455667','Fitness Trainer','Active','18 Dec 2024')"><i class="fa-solid fa-eye"></i> View</button>
+                  <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-  </main><!-- /main-content -->
-</div><!-- /admin-shell -->
+    <!-- ══ PENDING VERIFICATION SECTION ══ -->
+    <div id="section-pending" style="display:none;">
+      <div class="page-title">Pending Verification</div>
+      <div class="page-subtitle">Review and approve or reject provider applications.</div>
+
+      <div class="section-block">
+        <div class="section-block-header">
+          <h2><i class="fa-solid fa-shield-halved"></i> Verification Queue</h2>
+          <span class="badge badge-pending" id="queueCount">3 pending</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="pendingTable">
+            <thead>
+              <tr>
+                <th>Applicant</th>
+                <th>Service Type</th>
+                <th>Phone</th>
+                <th>Applied</th>
+                <th>Documents</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="user-cell"><div class="user-avatar">SA</div><div><div class="user-name">Sana Ahmed</div><div class="user-email">sana.ahmed@email.com</div></div></div></td>
+                <td>💄 Beautician</td>
+                <td>0312-1122334</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">2 days ago</td>
+                <td><span style="color:var(--green);font-size:0.8rem;font-weight:600;"><i class="fa-solid fa-file-circle-check"></i> 3/3 uploaded</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-verify" onclick="approveProvider(this, 'Sana Ahmed')"><i class="fa-solid fa-check"></i> Approve</button>
+                  <button class="btn-icon btn-delete" onclick="rejectProvider(this, 'Sana Ahmed')"><i class="fa-solid fa-xmark"></i> Reject</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td><div class="user-cell"><div class="user-avatar">RK</div><div><div class="user-name">Rabia Khan</div><div class="user-email">rabia.khan@email.com</div></div></div></td>
+                <td>📚 Tutor</td>
+                <td>0333-5566778</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">Yesterday</td>
+                <td><span style="color:var(--yellow);font-size:0.8rem;font-weight:600;"><i class="fa-solid fa-file-circle-exclamation"></i> 2/3 uploaded</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-verify" onclick="approveProvider(this, 'Rabia Khan')"><i class="fa-solid fa-check"></i> Approve</button>
+                  <button class="btn-icon btn-delete" onclick="rejectProvider(this, 'Rabia Khan')"><i class="fa-solid fa-xmark"></i> Reject</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td><div class="user-cell"><div class="user-avatar">FZ</div><div><div class="user-name">Fatima Zafar</div><div class="user-email">fatima.zafar@email.com</div></div></div></td>
+                <td>🧘 Fitness Trainer</td>
+                <td>0321-9988776</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">Today</td>
+                <td><span style="color:var(--green);font-size:0.8rem;font-weight:600;"><i class="fa-solid fa-file-circle-check"></i> 3/3 uploaded</span></td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-verify" onclick="approveProvider(this, 'Fatima Zafar')"><i class="fa-solid fa-check"></i> Approve</button>
+                  <button class="btn-icon btn-delete" onclick="rejectProvider(this, 'Fatima Zafar')"><i class="fa-solid fa-xmark"></i> Reject</button>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SUSPENDED USERS SECTION ══ -->
+    <div id="section-suspended" style="display:none;">
+      <div class="page-title">Suspended Users</div>
+      <div class="page-subtitle">Users who have been suspended from the platform.</div>
+
+      <div class="section-block">
+        <div class="section-block-header">
+          <h2><i class="fa-solid fa-ban"></i> Suspended Accounts</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="suspendedTable">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Phone</th>
+                <th>Suspended On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="user-cell"><div class="user-avatar">SA</div><div><div class="user-name">Sara Akhtar</div><div class="user-email">sara.akhtar@email.com</div></div></div></td>
+                <td><span class="badge badge-client">Client</span></td>
+                <td>0321-1122334</td>
+                <td style="color:var(--text-muted);font-size:0.82rem;">1 Apr 2025</td>
+                <td><div class="action-btns">
+                  <button class="btn-icon btn-restore" onclick="restoreUser(this, 'Sara Akhtar')"><i class="fa-solid fa-rotate-left"></i> Restore</button>
+                  <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i> Delete</button>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- VIEW USER MODAL -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('viewModal')"><i class="fa-solid fa-xmark"></i></button>
+    <h3><i class="fa-solid fa-user"></i> User Details</h3>
+    <div class="form-group"><label>Full Name</label><input type="text" id="vName" readonly /></div>
+    <div class="form-group"><label>Email</label><input type="text" id="vEmail" readonly /></div>
+    <div class="form-group"><label>Phone</label><input type="text" id="vPhone" readonly /></div>
+    <div class="form-group"><label>Role / Service</label><input type="text" id="vRole" readonly /></div>
+    <div class="form-group"><label>Status</label><input type="text" id="vStatus" readonly /></div>
+    <div class="form-group"><label>Joined</label><input type="text" id="vJoined" readonly /></div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-outline-sm" onclick="closeModal('viewModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD USER MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('addModal')"><i class="fa-solid fa-xmark"></i></button>
+    <h3><i class="fa-solid fa-user-plus"></i> <span id="addModalTitle">Add User</span></h3>
+    <div class="form-group"><label>Full Name</label><input type="text" id="newName" placeholder="e.g. Ayesha Khan" /></div>
+    <div class="form-group"><label>Email</label><input type="email" id="newEmail" placeholder="email@example.com" /></div>
+    <div class="form-group"><label>Phone</label><input type="tel" id="newPhone" placeholder="03XX-XXXXXXX" /></div>
+    <div class="form-group" id="serviceGroup" style="display:none;">
+      <label>Service Type</label>
+      <select id="newService">
+        <option value="">Select service…</option>
+        <option>💄 Beautician</option>
+        <option>📚 Tutor</option>
+        <option>🧘 Fitness Trainer</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-outline-sm" onclick="closeModal('addModal')">Cancel</button>
+      <button class="btn-sm btn-primary-sm" onclick="submitAdd()">Add</button>
+    </div>
+  </div>
+</div>
 
 <script>
-  // ── Set today's date ──────────────────────────────
-  const dateEl = document.getElementById('todayDate');
-  const now = new Date();
-  dateEl.textContent = now.toLocaleDateString('en-PK', {
-    weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
-  });
+  // Date
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-PK', { weekday:'short', year:'numeric', month:'short', day:'numeric' });
 
-  // ── Sidebar toggle (mobile) ───────────────────────
-  const sidebar  = document.getElementById('sidebar');
-  const overlay  = document.getElementById('sidebarOverlay');
-  const menuBtn  = document.getElementById('menuToggle');
-
-  menuBtn.addEventListener('click', () => {
+  // Sidebar toggle
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  document.getElementById('menuToggle').addEventListener('click', () => {
     sidebar.classList.toggle('open');
     overlay.classList.toggle('open');
   });
-
   overlay.addEventListener('click', () => {
     sidebar.classList.remove('open');
     overlay.classList.remove('open');
   });
 
-  // Close sidebar on nav link click (mobile)
-  document.querySelectorAll('.sidebar-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('open');
+  // Section switching
+  const sections = ['clients','providers','pending','suspended'];
+  function showSection(name) {
+    sections.forEach(s => {
+      document.getElementById('section-' + s).style.display = s === name ? '' : 'none';
     });
-  });
-
-  // ── Active nav highlight ──────────────────────────
-  document.querySelectorAll('.sidebar-nav a').forEach(link => {
-    link.addEventListener('click', function () {
-      document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-
-  // ── Verify provider ───────────────────────────────
-  function verifyProvider(btn, name) {
-    const row = btn.closest('tr');
-    const statusCell = row.querySelector('.badge');
-    statusCell.className = 'badge badge-verified';
-    statusCell.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified';
-    const actionCell = row.querySelector('.action-btns');
-    actionCell.innerHTML = '<span style="color:var(--green);font-size:0.8rem;font-weight:700;"><i class="fa-solid fa-check-double"></i> Approved</span>';
-    showToast(`✔ ${name} has been verified successfully.`, 'green');
+    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
   }
 
-  // ── Reject provider ───────────────────────────────
-  function rejectProvider(btn) {
+  // Search filter
+  function filterTable(tableId, query) {
+    const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+    const q = query.toLowerCase();
+    rows.forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+
+  // Status filter
+  function filterByStatus(tableId, status) {
+    const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+    rows.forEach(row => {
+      if (!status) { row.style.display = ''; return; }
+      row.style.display = row.textContent.includes(status) ? '' : 'none';
+    });
+  }
+
+  // View user modal
+  function viewUser(name, email, phone, role, status, joined) {
+    document.getElementById('vName').value   = name;
+    document.getElementById('vEmail').value  = email;
+    document.getElementById('vPhone').value  = phone;
+    document.getElementById('vRole').value   = role;
+    document.getElementById('vStatus').value = status;
+    document.getElementById('vJoined').value = joined;
+    document.getElementById('viewModal').classList.add('open');
+  }
+
+  // Add modal
+  let addType = 'client';
+  function openAddModal(type) {
+    addType = type;
+    document.getElementById('addModalTitle').textContent = type === 'provider' ? 'Add Provider' : 'Add User';
+    document.getElementById('serviceGroup').style.display = type === 'provider' ? '' : 'none';
+    document.getElementById('addModal').classList.add('open');
+  }
+
+  function submitAdd() {
+    const name  = document.getElementById('newName').value.trim();
+    const email = document.getElementById('newEmail').value.trim();
+    const phone = document.getElementById('newPhone').value.trim();
+    if (!name || !email) { showToast('Please fill in name and email.', 'red'); return; }
+    const tableId = addType === 'provider' ? 'providersTable' : 'clientsTable';
+    const tbody = document.querySelector('#' + tableId + ' tbody');
+    const rowCount = tbody.querySelectorAll('tr').length + 1;
+    const service = addType === 'provider' ? document.getElementById('newService').value : '';
+    const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--text-muted);font-size:0.8rem;">${String(rowCount).padStart(3,'0')}</td>
+      <td><div class="user-cell"><div class="user-avatar">${initials}</div><div><div class="user-name">${name}</div><div class="user-email">${email}</div></div></div></td>
+      ${addType === 'provider' ? `<td>${service}</td>` : ''}
+      <td>${phone || '—'}</td>
+      <td style="color:var(--text-muted);font-size:0.82rem;">${new Date().toLocaleDateString('en-PK',{day:'numeric',month:'short',year:'numeric'})}</td>
+      ${addType === 'client' ? `<td><span class="badge badge-client">Client</span></td>` : ''}
+      <td><span class="badge badge-active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+      <td><div class="action-btns">
+        <button class="btn-icon btn-view" onclick="viewUser('${name}','${email}','${phone}','${service||'Client'}','Active','Today')"><i class="fa-solid fa-eye"></i> View</button>
+        <button class="btn-icon btn-suspend" onclick="toggleSuspend(this)"><i class="fa-solid fa-ban"></i> Suspend</button>
+        <button class="btn-icon btn-delete" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button>
+      </div></td>`;
+    tbody.appendChild(tr);
+    closeModal('addModal');
+    document.getElementById('newName').value = '';
+    document.getElementById('newEmail').value = '';
+    document.getElementById('newPhone').value = '';
+    showToast(`✔ ${name} has been added.`, 'green');
+  }
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  // Suspend / restore toggle
+  function toggleSuspend(btn) {
     const row = btn.closest('tr');
-    const name = row.querySelector('.mini-name').textContent;
-    const statusCell = row.querySelector('.badge');
-    statusCell.className = 'badge badge-cancelled';
-    statusCell.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Rejected';
-    const actionCell = row.querySelector('.action-btns');
-    actionCell.innerHTML = '<span style="color:var(--red);font-size:0.8rem;font-weight:700;"><i class="fa-solid fa-xmark"></i> Rejected</span>';
+    const statusBadge = row.querySelector('.badge');
+    const isSuspended = statusBadge.classList.contains('badge-suspended');
+    if (isSuspended) {
+      statusBadge.className = 'badge badge-active';
+      statusBadge.innerHTML = '<i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active';
+      btn.className = 'btn-icon btn-suspend';
+      btn.innerHTML = '<i class="fa-solid fa-ban"></i> Suspend';
+      btn.setAttribute('onclick','toggleSuspend(this)');
+      showToast('User has been restored.', 'green');
+    } else {
+      statusBadge.className = 'badge badge-suspended';
+      statusBadge.innerHTML = '<i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Suspended';
+      btn.className = 'btn-icon btn-restore';
+      btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Restore';
+      btn.setAttribute('onclick','toggleSuspend(this)');
+      showToast('User has been suspended.', 'red');
+    }
+  }
+
+  // Delete row
+  function deleteRow(btn) {
+    if (!confirm('Are you sure you want to delete this user? This cannot be undone.')) return;
+    btn.closest('tr').remove();
+    showToast('User deleted.', 'red');
+  }
+
+  // Approve provider
+  function approveProvider(btn, name) {
+    btn.closest('tr').remove();
+    updatePendingCount();
+    showToast(`✔ ${name} has been approved as a provider.`, 'green');
+  }
+
+  // Reject provider
+  function rejectProvider(btn, name) {
+    btn.closest('tr').remove();
+    updatePendingCount();
     showToast(`✖ ${name}'s application has been rejected.`, 'red');
   }
 
-  // ── Scroll to section ─────────────────────────────
-  function scrollToSection(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  function updatePendingCount() {
+    const count = document.querySelectorAll('#pendingTable tbody tr').length;
+    document.getElementById('pendingBadge').textContent = count;
+    document.getElementById('queueCount').textContent = count + ' pending';
   }
 
-  // ── Toast notification ────────────────────────────
+  // Restore from suspended section
+  function restoreUser(btn, name) {
+    btn.closest('tr').remove();
+    showToast(`${name} has been restored.`, 'green');
+  }
+
+  // Export CSV (basic)
+  function exportTable(tableId) {
+    const rows = document.querySelectorAll('#' + tableId + ' tr');
+    const csv = Array.from(rows).map(r =>
+      Array.from(r.querySelectorAll('th,td')).map(c => '"' + c.innerText.replace(/"/g,'""') + '"').join(',')
+    ).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = tableId + '.csv';
+    a.click();
+  }
+
+  // Toast
   function showToast(msg, type) {
     const existing = document.querySelector('.toast');
     if (existing) existing.remove();
-
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = msg;
-    const bg = type === 'green' ? '#2e7d32' : '#c62828';
     Object.assign(toast.style, {
-      position: 'fixed', bottom: '2rem', left: '50%',
-      transform: 'translateX(-50%)',
-      background: bg, color: '#fff',
-      padding: '0.75rem 1.5rem',
-      borderRadius: '50px',
-      fontSize: '0.88rem', fontWeight: '600',
-      fontFamily: 'inherit',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-      zIndex: '9999',
-      opacity: '0',
-      transition: 'opacity 0.3s'
+      position:'fixed', bottom:'2rem', left:'50%', transform:'translateX(-50%)',
+      background: type === 'green' ? '#2e7d32' : '#c62828',
+      color:'#fff', padding:'0.75rem 1.5rem', borderRadius:'50px',
+      fontSize:'0.88rem', fontWeight:'600', fontFamily:'inherit',
+      boxShadow:'0 4px 20px rgba(0,0,0,0.2)', zIndex:'9999', opacity:'0', transition:'opacity 0.3s'
     });
     document.body.appendChild(toast);
     requestAnimationFrame(() => toast.style.opacity = '1');
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
   }
 </script>
-
 </body>
 </html>
