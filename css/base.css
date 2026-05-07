@@ -1,0 +1,157 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:   #C48B9D;
+  --secondary: #F4D0D4;
+  --accent:    #9E6B7A;
+  --bg:        #FFF9F9;
+  --text:      #2D2D2D;
+  --radius:    16px;
+  --shadow:    0 4px 24px rgba(196, 139, 157, 0.15);
+  --shadow-lg: 0 8px 40px rgba(196, 139, 157, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img, video, svg { max-width: 100%; display: block; }
+
+/* ── Shared section layout ── */
+section { padding: 5rem 2rem; }
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Section heading with left accent border ── */
+.section-heading {
+  border-left: 4px solid var(--accent);
+  padding-left: 0.85rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading .section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
+
+.section-heading .section-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+.section-heading .section-sub {
+  color: #7a5060;
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+  max-width: 560px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(158, 107, 122, 0.35);
+}
+
+.btn-primary:hover {
+  background: #7d5265;
+  box-shadow: 0 8px 28px rgba(158, 107, 122, 0.45);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+/* ── Floating SOS Button ── */
+.sos-btn {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 1.75rem;
+  z-index: 999;
+  background: #E53935;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 0.7rem 1.3rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(229, 57, 53, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  animation: sos-pulse 2.5s infinite;
+}
+
+.sos-btn:hover {
+  background: #c62828;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 28px rgba(229, 57, 53, 0.55);
+  animation: none;
+}
+
+@keyframes sos-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(229, 57, 53, 0.45); }
+  50%       { box-shadow: 0 4px 32px rgba(229, 57, 53, 0.75); }
+}
+
+/* ── Responsive base ── */
+@media (max-width: 768px) {
+  section { padding: 3.5rem 1.25rem; }
+
+  .sos-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    font-size: 0.82rem;
+    padding: 0.6rem 1.1rem;
+  }
+}

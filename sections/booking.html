@@ -1,0 +1,61 @@
+<section id="booking">
+  <div class="section-inner">
+
+    <div class="section-heading">
+      <span class="section-label">Quick Booking</span>
+      <h2 class="section-title">Book a Service in Seconds</h2>
+      <p class="section-sub">Tell us what you need and we'll match you with a verified provider near you.</p>
+    </div>
+
+    <div class="booking-wrap">
+
+      <form class="booking-form" id="bookingForm" onsubmit="handleBooking(event)">
+
+        <!-- Service Type -->
+        <div>
+          <label for="serviceType">Service Type</label>
+          <div class="select-wrap">
+            <select id="serviceType" required>
+              <option value="" disabled selected>Select a service…</option>
+              <option value="driver">🚗 Female Driver</option>
+              <option value="beautician">💄 Beautician</option>
+              <option value="tutor">📚 Tutor</option>
+              <option value="fitness">🧘 Fitness Trainer</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div>
+          <label for="location">Your Location</label>
+          <input
+            type="text"
+            id="location"
+            placeholder="e.g., DHA Karachi, Gulberg Lahore"
+            required
+          />
+        </div>
+
+        <!-- Date & Time -->
+        <div>
+          <label for="datetime">Preferred Date &amp; Time</label>
+          <input
+            type="datetime-local"
+            id="datetime"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn-book">Confirm Booking</button>
+
+      </form>
+
+      <!-- Success message (shown after submit) -->
+      <div class="booking-success" id="bookingSuccess">
+        <div class="success-icon">🎉</div>
+        <p>Your booking request has been received!<br>A verified provider will confirm shortly.</p>
+      </div>
+
+    </div>
+  </div>
+</section>

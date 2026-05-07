@@ -1,0 +1,132 @@
+#how { background: #fff; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: calc(16.66% + 1rem);
+  right: calc(16.66% + 1rem);
+  height: 2px;
+  background: var(--secondary);
+  z-index: 0;
+}
+
+.step {
+  text-align: center;
+  padding: 1.75rem 1.25rem;
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--secondary);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.step:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.step-num {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.85rem;
+  box-shadow: 0 4px 14px rgba(196, 139, 157, 0.4);
+}
+
+.step-icon {
+  font-size: 1.7rem;
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.step h3 {
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.step p {
+  font-size: 0.85rem;
+  color: #7a5060;
+  line-height: 1.55;
+}
+
+/* ── Safety Promise ── */
+.safety-box {
+  background: #F4D0D4;
+  border-radius: var(--radius);
+  border: 2px solid #9E6B7A;
+  padding: 2.25rem 2.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.safety-icon {
+  font-size: 2.6rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 0.15rem;
+}
+
+.safety-content h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #9E6B7A;
+  margin-bottom: 1rem;
+}
+
+.safety-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem 2rem;
+}
+
+.safety-list li {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.safety-list li::before {
+  content: '✓';
+  color: #9E6B7A;
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr; }
+  .steps::before { display: none; }
+
+  .safety-box {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem 1.25rem;
+  }
+
+  .safety-list { grid-template-columns: 1fr; }
+}
